@@ -43,7 +43,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             // Descomentar en caso de querer cifrar cintraseñas
-            //'password' => 'hashed',
+            'password' => 'hashed',
         ];
     }
 }

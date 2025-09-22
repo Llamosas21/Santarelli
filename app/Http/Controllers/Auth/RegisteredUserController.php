@@ -39,8 +39,8 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             // La línea comentada indica que le debe hacer un encriptado inicial 
-            //'password' => Hash::make($request->password),
-            'password' => $request->password, // contraseña en texto plano
+            'password' => Hash::make($request->password),
+            //'password' => $request->password, // contraseña en texto plano
         ]);
 
         event(new Registered($user));
