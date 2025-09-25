@@ -13,7 +13,7 @@ class ReservaTest extends Model
     
     protected $fillable = [
         'cliente',
-        'lugar',
+        'destino',
         'tipo_micro',
         'cantidad_micros',
         'monto',

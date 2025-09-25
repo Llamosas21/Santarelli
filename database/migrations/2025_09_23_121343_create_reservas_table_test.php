@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('reservas_table_test', function (Blueprint $table) {
              $table->id();
             $table->string('cliente');
-            $table->string('lugar')->nullable();
+            $table->string('destino')->nullable();
             $table->string('tipo_micro');
             $table->integer('cantidad_micros');
             $table->decimal('monto', 12, 2);

@@ -8,7 +8,7 @@
                         <thead>
                             <tr class="bg-gray-100 dark:bg-gray-700">
                                 <th class="px-4 py-2 text-left">Cliente</th>
-                                <th class="px-4 py-2 text-left">Lugar</th>
+                                <th class="px-4 py-2 text-left">Destino</th>
                                 <th class="px-4 py-2 text-left">Tipo Micro</th>
                                 <th class="px-4 py-2 text-left">Cantidad Micros</th>
                                 <th class="px-4 py-2 text-left">Monto</th>
@@ -19,7 +19,7 @@
                             @forelse ($reservas as $reserva)
                             <tr class="border-t border-gray-300 dark:border-gray-700">
                                 <td class="px-4 py-2">{{ $reserva->cliente }}</td>
-                                <td class="px-4 py-2">{{ $reserva->lugar }}</td>
+                                <td class="px-4 py-2">{{ $reserva->destino }}</td>
                                 <td class="px-4 py-2">{{ $reserva->tipo_micro }}</td>
                                 <td class="px-4 py-2">{{ $reserva->cantidad_micros }}</td>
                                 <td class="px-4 py-2">{{ $reserva->monto }}</td>

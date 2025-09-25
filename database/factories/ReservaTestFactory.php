@@ -10,8 +10,8 @@ class ReservaTestFactory extends Factory
     {
         return [
             'cliente' => $this->faker->name(),
-            'lugar' => $this->faker->city(),
-            'tipo_micro' => $this->faker->randomElement(['20 pers', '40 pers', '60 pers']),
+            'destino' => $this->faker->city(),
+            'tipo_micro' => $this->faker->randomElement(['20 personas', '40 personas', '60 personas']),
             'cantidad_micros' => $this->faker->numberBetween(1, 7),
             'monto' => $this->faker->numberBetween(20000, 50000),
             'estado' => $this->faker->randomElement(['pendiente', 'aceptado', 'rechazado']),
