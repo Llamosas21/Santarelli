@@ -1,4 +1,5 @@
 <?php
+// Este archivo queda en Sin Utilidad es solo una referencia.
 
 namespace Database\Factories;
 

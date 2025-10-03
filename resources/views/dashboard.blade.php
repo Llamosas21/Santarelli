@@ -6,24 +6,35 @@
 
                     <table class="w-full border border-gray-300 dark:border-gray-700">
                         <thead>
-                            <tr class="bg-gray-100 dark:bg-gray-700">
-                                <th class="px-4 py-2 text-left">Cliente</th>
-                                <th class="px-4 py-2 text-left">Destino</th>
-                                <th class="px-4 py-2 text-left">Tipo Micro</th>
-                                <th class="px-4 py-2 text-left">Cantidad Micros</th>
-                                <th class="px-4 py-2 text-left">Monto</th>
-                                <th class="px-4 py-2 text-left">Estado</th>
+                            <tr class="bg-gray-100 dark:bg-gray-700 text-center">
+                                <th class="px-4 py-2">Cliente</th>
+                                <th class="px-4 py-2">Destino</th>
+                                <th class="px-4 py-2">Tipo Micro</th>
+                                <th class="px-4 py-2">Cantidad Micros</th>
+                                <th class="px-4 py-2">Monto</th>
+                                <th class="px-4 py-2">Estado</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($reservas as $reserva)
-                            <tr class="border-t border-gray-300 dark:border-gray-700">
-                                <td class="px-4 py-2">{{ $reserva->cliente }}</td>
-                                <td class="px-4 py-2">{{ $reserva->destino }}</td>
-                                <td class="px-4 py-2">{{ $reserva->tipo_micro }}</td>
-                                <td class="px-4 py-2">{{ $reserva->cantidad_micros }}</td>
+                            <tr class="border-t border-gray-300 dark:border-gray-700 text-center">
+                                <td class="px-4 py-2 text-center">
+                                    {{ $reserva->cliente->nombre ?? '' }} {{ $reserva->cliente->apellido ?? '' }}
+                                </td>
+                                <td class="px-4 py-2 ">
+                                    {{ $reserva->lugar->nombre ?? 'N/A' }}
+                                </td>
+                                <td class="px-4 py-2">
+                                    @foreach ($reserva->micros as $micro)
+                                        {{ $micro->tipoMicro->nombre }}
+                                        @if (!$loop->last), @endif
+                                    @endforeach
+                                </td>
+                                <td class="px-4 py-2">
+                                    {{ $reserva->micros->sum('cantidad') }}
+                                </td>
                                 <td class="px-4 py-2">{{ $reserva->monto }}</td>
-                                <td class="px-4 py-2">{{ $reserva->estado }}</td>
+                                <td class="px-4 py-2">{{ ucfirst($reserva->estado) }}</td>
                             </tr>
                             @empty
                             <tr>

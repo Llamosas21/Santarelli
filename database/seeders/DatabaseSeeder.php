@@ -3,23 +3,24 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Reserva;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-
     public function run(): void
     {
-        // User::factory(10)->create();
-    
-        /*
-        //Método para crear un usuario
+        // Crear usuario test
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'test',
+            'email' => 'test@santarelli.com',
+            'password' => bcrypt('p')
         ]);
-        */
-        \App\Models\ReservaTest::factory(50)->create();
+
+        // Crear 10 reservas con sus relaciones
+        Reserva::factory(50)->create();
+        
+        // Comentamos el seeder anterior de prueba
+        // \App\Models\ReservaTest::factory(50)->create();
     }
 }
