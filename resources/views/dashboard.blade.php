@@ -1,52 +1,71 @@
 <x-app-layout>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
+    <div class="py-12 flex justify-center">
+        <div class="max-w-7xl w-full px-4 sm:px-6 lg:px-8">
+            <div class="text-gray-900 dark:text-gray-100">
 
-                    <table class="w-full border border-gray-300 dark:border-gray-700">
-                        <thead>
-                            <tr class="bg-gray-100 dark:bg-gray-700 text-center">
-                                <th class="px-4 py-2">Cliente</th>
-                                <th class="px-4 py-2">Destino</th>
-                                <th class="px-4 py-2">Tipo Micro</th>
-                                <th class="px-4 py-2">Cantidad Micros</th>
-                                <th class="px-4 py-2">Monto</th>
-                                <th class="px-4 py-2">Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($reservas as $reserva)
-                            <tr class="border-t border-gray-300 dark:border-gray-700 text-center">
-                                <td class="px-4 py-2 text-center">
-                                    {{ $reserva->cliente->nombre ?? '' }} {{ $reserva->cliente->apellido ?? '' }}
-                                </td>
-                                <td class="px-4 py-2 ">
-                                    {{ $reserva->lugar->nombre ?? 'N/A' }}
-                                </td>
-                                <td class="px-4 py-2">
-                                    @foreach ($reserva->micros as $micro)
-                                        {{ $micro->tipoMicro->nombre }}
-                                        @if (!$loop->last), @endif
-                                    @endforeach
-                                </td>
-                                <td class="px-4 py-2">
-                                    {{ $reserva->micros->sum('cantidad') }}
-                                </td>
-                                <td class="px-4 py-2">{{ $reserva->monto }}</td>
-                                <td class="px-4 py-2">{{ ucfirst($reserva->estado) }}</td>
-                            </tr>
-                            @empty
-                            <tr>
-                                <td colspan="6" class="px-4 py-2 text-center text-gray-500">
-                                    No hay reservas registradas.
-                                </td>
-                            </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+                @if ($reservas->isEmpty())
+                    <div class="text-center text-gray-500 dark:text-gray-400">
+                        No hay reservas registradas.
+                    </div>
+                @else
+                    <div class="flex flex-wrap justify-center gap-6">
+                        @foreach ($reservas as $reserva)
+                            <div class="bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition 
+                                        rounded-2xl border border-gray-200 dark:border-gray-700 
+                                        p-4 sm:p-6 max-w-xs w-full text-center">
+                                
+                                {{-- Bloque de texto aclarado --}}
+                                <div class="mb-3 dark:!text-gray-200">
+                                    <h2 class="text-lg font-semibold text-gray-800 dark:!text-gray-100">
+                                        {{ $reserva->cliente->nombre ?? '' }} {{ $reserva->cliente->apellido ?? '' }}
+                                    </h2>
+                                    <p class="text-sm text-gray-500 dark:!text-gray-300">
+                                        {{ $reserva->lugar->nombre ?? 'Destino no especificado' }}
+                                    </p>
+                                </div>
 
-                </div>
+                                {{-- Datos de la reserva --}}
+                                <div class="space-y-1 text-sm dark:!text-gray-200">
+                                    <p>
+                                        <span class="font-semibold">Tipo Micro:</span>
+                                        @foreach ($reserva->micros as $micro)
+                                            {{ $micro->tipoMicro->nombre }}
+                                            @if (!$loop->last), @endif
+                                        @endforeach
+                                    </p>
+
+                                    <p>
+                                        <span class="font-semibold">Cantidad Micros:</span>
+                                        {{ $reserva->micros->sum('cantidad') }}
+                                    </p>
+
+                                    <p>
+                                        <span class="font-semibold">Monto:</span>
+                                        ${{ number_format($reserva->monto, 0, ',', '.') }}
+                                    </p>
+
+                                    <p>
+                                        <span class="font-semibold">Estado:</span>
+                                        <span class="
+                                            px-2 py-1 rounded-full text-xs font-semibold
+                                            @if($reserva->estado === 'aceptado')
+                                                bg-green-200 text-green-800 dark:bg-green-600 dark:text-green-100
+                                            @elseif($reserva->estado === 'pendiente')
+                                                dark:bg-orange-500 dark:text-orange-100
+                                            @elseif($reserva->estado === 'rechazado')
+                                                bg-red-200 text-red-800 dark:bg-red-600 dark:text-red-100
+                                            @else
+                                                bg-gray-200 text-gray-800 dark:bg-gray-600 dark:text-gray-100
+                                            @endif">
+                                            {{ ucfirst($reserva->estado) }}
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+
             </div>
         </div>
     </div>
