@@ -18,8 +18,10 @@
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
             <!-- Logo debajo del formulario -->
 
-            <div class="mt-4"> 
-                <x-application-logo class="w-full h-full fill-current text-gray-500 opacity-80" />
+            <div class="mt-3">
+            <img src="{{ asset('images/Logo Blanco.svg') }}"
+                alt="Logo de la aplicación - Logo Blanco"
+                class="w-70 h-40" /> 
             </div>
 
             <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
