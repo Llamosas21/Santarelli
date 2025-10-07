@@ -8,7 +8,7 @@
                         No hay reservas registradas.
                     </div>
                 @else
-                    <div class="flex flex-wrap justify-center gap-6">
+                    <div class="flex flex-wrap justify-center gap-8">
                         @foreach ($reservas as $reserva)
                             <div class="bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition 
                                         rounded-2xl border border-gray-200 dark:border-gray-700 
