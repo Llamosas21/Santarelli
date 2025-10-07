@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="py-12 flex justify-center">
+    <div class="py-24 flex justify-center">
         <div class="max-w-7xl w-full px-4 sm:px-6 lg:px-8">
             <div class="text-gray-900 dark:text-gray-100">
 
