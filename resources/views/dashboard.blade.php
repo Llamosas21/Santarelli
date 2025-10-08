@@ -60,7 +60,18 @@
                                             {{ ucfirst($reserva->estado) }}
                                         </span>
                                     </p>
-                                </div>
+                                </div> {{-- FIN de Datos de la reserva --}}
+                                
+                                {{-- BLOQUE DE ENLACE REUBICADO AQUÍ --}}
+                                @if ($reserva->cliente ?? false)
+                                    <div class="pt-3 border-t border-gray-100 dark:border-gray-700 mt-4">
+                                        <a href="{{ route('clientes.show', $reserva->cliente->id) }}" 
+                                        class="text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300">
+                                            Ver detalles del Cliente
+                                        </a>
+                                    </div>
+                                @endif
+                                
                             </div>
                         @endforeach
                     </div>
