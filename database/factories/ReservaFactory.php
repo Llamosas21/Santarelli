@@ -18,6 +18,7 @@ class ReservaFactory extends Factory
             'cliente_id' => Cliente::factory(),
             'lugar_id' => LugarDestino::factory(),
             'monto' => $this->faker->numberBetween(300000, 1500000),
+            'cantidad_pasajeros' => $this->faker->numberBetween(2, 20) * 10,
             'estado' => $this->faker->randomElement(['pendiente', 'aceptado', 'rechazado'])
         ];
     }
