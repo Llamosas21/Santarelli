@@ -2,7 +2,29 @@
     <div class="py-24 flex justify-center">
         <div class="max-w-7xl w-full px-4 sm:px-6 lg:px-8">
             <div class="text-gray-900 dark:text-gray-100">
+                 {{-- Filtro --}}
+                <div class="mb-8 flex justify-center">
+                    <form action="{{ route('dashboard') }}" method="GET" class="flex items-center space-x-2">
+                        
+                        {{-- Etiqueta Visible y Estilizada --}}
+                        <label for="estado_filtro" class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                            Filtrar:
+                        </label>
+                        
+                        {{-- Selector de Opciones Estilizado --}}
+                        <select name="estado" id="estado_filtro" onchange="this.form.submit()"
+                            class="py-2 pl-3 pr-10 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 dark:text-gray-200 
+                                rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm appearance-none
+                                transition duration-150 ease-in-out cursor-pointer">
+                            
+                            <option value="pendiente" @if($estadoFiltro === 'pendiente') selected @endif>Pendientes</option>
+                            <option value="aceptado" @if($estadoFiltro === 'aceptado') selected @endif>Aceptadas</option>                   
+                            <option value="rechazado" @if($estadoFiltro === 'rechazado') selected @endif>Rechazadas</option>
+                            <option value="todos" @if($estadoFiltro === 'todos') selected @endif>Todas</option>
 
+                        </select>
+                    </form>
+                </div>
                 @if ($reservas->isEmpty())
                     <div class="text-center text-gray-500 dark:text-gray-400">
                         No hay reservas registradas.

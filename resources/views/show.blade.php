@@ -53,18 +53,22 @@
                 @if($reserva->micros->isEmpty())
                     <p class="text-gray-500 italic bg-gray-50 dark:bg-gray-700 p-2 rounded">No hay micros asignados.</p>
                 @else
-                    <table class="min-w-full border-collapse border border-gray-200 dark:border-gray-600 rounded-lg overflow-hidden text-gray-700 dark:text-gray-200">
+                    <table class="min-w-full border-collapse border border-indigo-500 dark:border-indigo-400 rounded-lg overflow-hidden text-gray-700 dark:text-gray-200">
                         <thead class="bg-gray-100 dark:bg-gray-700">
                             <tr>
-                                <th class="border border-gray-200 dark:border-gray-600 p-2 text-left">Tipo de micro</th>
-                                <th class="border border-gray-200 dark:border-gray-600 p-2 text-left">Cantidad</th>
+                                <th class="border border-indigo-500 dark:border-indigo-400 p-2 text-left">Tipo de micro</th>
+                                <th class="border border-indigo-500 dark:border-indigo-400 p-2 text-left">Cantidad</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($reserva->micros as $micro)
-                            <tr class="border-t dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-200">
-                                <td class="p-2">{{ $micro->tipoMicro->nombre ?? '-' }}</td>
-                                <td class="p-2">{{ $micro->cantidad }}</td>
+                            <tr> 
+                                <td class="p-2 border border-indigo-500 dark:border-indigo-400">
+                                    {{ $micro->tipoMicro->nombre ?? '-' }}
+                                </td>
+                                <td class="p-2 border border-indigo-500 dark:border-indigo-400">
+                                    {{ $micro->cantidad }}
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
