@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('cliente_id')->constrained('clientes')->onDelete('cascade');
             $table->foreignId('lugar_id')->constrained('lugares_destino')->onDelete('cascade');
+            $table->integer('cantidad_pasajeros');
             $table->decimal('monto', 12, 2);
             $table->enum('estado', ['pendiente','aceptado','rechazado'])->default('pendiente');
             $table->timestamps();

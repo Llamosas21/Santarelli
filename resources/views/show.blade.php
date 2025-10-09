@@ -2,19 +2,21 @@
     <div class="max-w-6xl mx-auto py-24">
 
         <h2 class="text-3xl font-bold mb-8 text-gray-900 dark:text-gray-100">Detalles de {{ $cliente->nombre }} {{ $cliente->apellido }}</h2>
+        <div class=" bg-white dark:bg-gray-800 shadow-xl rounded-xl p-6 mb-8  dark:border-indigo-400">
+   
 
-        <div class="bg-white dark:bg-gray-800 shadow-xl rounded-xl p-6 mb-8  dark:border-indigo-400">
-
-            @if($cliente->contactos->isNotEmpty())
-                @foreach($cliente->contactos as $contacto)
-                    <p class="text-gray-600 dark:text-gray-300"><span class="font-semibold">Teléfono:</span> {{ $contacto->telefono ?? 'No registrado' }}</p>
-                    <p class="text-gray-600 dark:text-gray-300"><span class="font-semibold">Email:</span> {{ $contacto->email ?? 'No registrado' }}</p>
-                @endforeach
-            @else
-                <p class="text-gray-500 italic bg-gray-50 dark:bg-gray-700 p-2 rounded">No tiene contactos registrados.</p>
-            @endif
+        <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+            <h4 class="font-semibold text-lg mb-2 text-indigo-700 dark:text-indigo-400">Contactos</h4>
+                @if($cliente->contactos->isNotEmpty())
+                    @foreach($cliente->contactos as $contacto)
+                        <p class="text-gray-600 dark:text-gray-300"><span class="font-semibold">Teléfono:</span> {{ $contacto->telefono ?? 'No registrado' }}</p>
+                        <p class="text-gray-600 dark:text-gray-300"><span class="font-semibold">Email:</span> {{ $contacto->email ?? 'No registrado' }}</p>
+                    @endforeach
+                @else
+                    <p class="text-gray-500 italic bg-gray-50 dark:bg-gray-700 p-2 rounded">No tiene contactos registrados.</p>
+                @endif
+            </div>
         </div>
-
         <h3 class="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Reservas</h3>
 
         @forelse($cliente->reservas as $reserva)
@@ -75,7 +77,7 @@
         @endforelse
 
         <div class="mt-8 text-center">
-            <a href="{{ url()->previous() }}" class="text-indigo-600 dark:text-indigo-400 hover:underline font-medium">← Volver</a>
+            <a href="{{ url()->previous() }}" class="text-indigo-600 dark:text-indigo-400 hover:underline font-medium"> Volver</a>
         </div>
 
     </div>
