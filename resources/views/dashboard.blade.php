@@ -8,7 +8,7 @@
                         
                         {{-- Etiqueta Visible y Estilizada --}}
                         <label for="estado_filtro" class="text-sm font-medium text-gray-700 dark:text-gray-300">
-                            Filtrar:
+                            Filtro:
                         </label>
                         
                         {{-- Selector de Opciones Estilizado --}}

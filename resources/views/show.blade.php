@@ -2,10 +2,10 @@
     <div class="max-w-6xl mx-auto py-24">
 
         <h2 class="text-3xl font-bold mb-8 text-gray-900 dark:text-gray-100">Detalles de {{ $cliente->nombre }} {{ $cliente->apellido }}</h2>
-        <div class=" bg-white dark:bg-gray-800 shadow-xl rounded-xl p-6 mb-8  dark:border-indigo-400">
+        <div class=" bg-white dark:bg-gray-800 shadow-xl rounded-xl p-6 mb-8 border border-indigo-200 dark:border-gray-700 hover:shadow-xl transition duration-300">
    
-
         <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+            {{-- Bloque de Contactos --}}
             <h4 class="font-semibold text-lg mb-2 text-indigo-700 dark:text-indigo-400">Contactos</h4>
                 @if($cliente->contactos->isNotEmpty())
                     @foreach($cliente->contactos as $contacto)
@@ -23,7 +23,7 @@
         <div class="bg-white dark:bg-gray-800 shadow-md rounded-xl p-6 mb-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition duration-300">
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
-                {{-- Bloque de Resumen (Minimalista, usando Indigo para acento) --}}
+                {{-- Bloque de Resumen --}}
                 <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
                     <h4 class="font-semibold text-lg mb-2 text-indigo-700 dark:text-indigo-400">Resumen</h4>
                     <p class="text-gray-700 dark:text-gray-200"><span class="font-semibold">Lugar destino:</span> {{ $reserva->lugar->nombre ?? '-' }}</p>
@@ -39,7 +39,7 @@
                     </p>
                 </div>
 
-                {{-- Bloque de Horario (Minimalista) --}}
+                {{-- Bloque de Horario --}}
                 <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
                     <h4 class="font-semibold text-lg mb-2 text-indigo-700 dark:text-indigo-400">Horarios</h4>
                     <p class="text-gray-700 dark:text-gray-200"><span class="font-semibold">Fecha salida:</span> {{ optional($reserva->horario)->fecha_salida ?? '-' }}</p>
