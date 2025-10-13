@@ -8,4 +8,10 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    /* 
+       server: {
+        host: '192.168.0.27', //La ip del server (Local)
+        cors: true
+    }
+    */ 
 });
