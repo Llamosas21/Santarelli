@@ -72,7 +72,7 @@
                                 </div>
 
                                 <div class="space-y-1 text-sm text-gray-700 dark:text-gray-200">
-                                    <p><span class="font-semibold">Fecha de Salida:</span> {{ optional($reserva->horario)->fecha_salida ? \Carbon\Carbon::parse($reserva->horario->fecha_salida)->format('d/m/Y') : 'N/A' }}</p>
+<p><span class="font-semibold">Fecha de Salida:</span> {{ optional($reserva->horario)->fecha_salida ? \Carbon\Carbon::parse($reserva->horario->fecha_salida)->format('d/m/Y H:i') : 'N/A' }}</p>
                                     <p><span class="font-semibold">Tipo Micro:</span>
                                         @foreach ($reserva->micros as $micro)
                                             {{ $micro->tipoMicro->nombre }}{{ !$loop->last ? ',' : '' }}
