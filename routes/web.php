@@ -17,15 +17,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Obtiene la ruta del panel solo si está auteticado 
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
-    
 
-Route::get('/clientes/{id}', [ClienteController::class, 'show'])
-    ->middleware(['auth', 'verified'])
-    ->name('clientes.show');
-
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/resumen', [DashboardController::class, 'resumen'])->name('resumen');
+    Route::get('/clientes/{id}', [ClienteController::class, 'show'])->name('clientes.show');
+});
 
 require __DIR__.'/auth.php';
