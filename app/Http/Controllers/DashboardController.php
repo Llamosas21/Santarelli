@@ -31,25 +31,28 @@ class DashboardController extends Controller
         return view('dashboard', compact('reservas', 'estadoFiltro', 'fechaFiltro'));
     }
 
-    public function resumen(): View
+    public function resumen(Request $request): View
     {
         $inicioMes = now()->startOfMonth();
         $finMes = now()->endOfMonth();
 
-        $reservas = Reserva::query()
-            ->with(['cliente', 'lugar', 'micros.tipoMicro', 'horario'])
-            // Une directamente con 'horario_reserva' porque ahí está la fecha
-            ->join('horario_reserva', 'reservas.id', '=', 'horario_reserva.reserva_id')
-            // Filtra por la fecha de salida que está en esa tabla
-            ->whereBetween('horario_reserva.fecha_salida', [$inicioMes, $finMes])
-            // Ordena por la fecha de salida para ver las más próximas primero
-            ->orderBy('horario_reserva.fecha_salida', 'asc')
-            // Selecciona solo los campos de la tabla reservas para evitar conflictos
-            ->select('reservas.*')
-            // Evita posibles duplicados generados por el 'join'
-            ->distinct()
-            ->get();
+        $estadoFiltro = $request->input('estado', 'todos');
 
-        return view('resumen', compact('reservas'));
+        $reservasQuery = Reserva::query()
+            ->with(['cliente', 'lugar', 'micros.tipoMicro', 'horario'])
+            ->join('horario_reserva', 'reservas.id', '=', 'horario_reserva.reserva_id')
+            ->whereBetween('horario_reserva.fecha_salida', [$inicioMes, $finMes])
+            ->orderBy('horario_reserva.fecha_salida', 'asc')
+            ->select('reservas.*')
+            ->distinct();
+
+        if ($estadoFiltro !== 'todos') {
+            $reservasQuery->where('reservas.estado', $estadoFiltro);
+        }
+
+        $reservas = $reservasQuery->get();
+
+        return view('resumen', compact('reservas', 'estadoFiltro'));
     }
+
 }
