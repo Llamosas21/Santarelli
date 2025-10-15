@@ -88,11 +88,10 @@
                                     </p>
 
                                     @if ($reserva->micros->isNotEmpty())
-                                        <p><span class="font-semibold">Tipo Micro:</span>
-                                            @foreach ($reserva->micros as $micro)
-                                                {{ $micro->tipoMicro->nombre }}{{ !$loop->last ? ',' : '' }}
-                                            @endforeach
-                                        </p>
+                                        <!-- // Se comenta debido a que pueden haber muchos tipos de micros lo que afecta el que se entienda de primera mano
+                                            <p><span class="font-semibold">Tipo Micro:</span>
+                                            </p>
+                                            -->
                                         <p><span class="font-semibold">Cantidad Micros:</span>
                                             {{ $reserva->micros->sum('cantidad') }}
                                         </p>
@@ -113,13 +112,17 @@
                                     </p>
                                 </div>
 
-                                <!-- Enlace -->
+                                <!-- Enlaces -->
                                 @if ($reserva->cliente ?? false)
-                                    <div class="pt-3 border-t border-gray-200 dark:border-gray-700 mt-4">
-                                        <a href="{{ route('clientes.show', $reserva->cliente->id) }}"
-                                            class="text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300">
-                                            Ver detalles del Cliente
+                                    <div class="pt-4 border-t border-gray-200 dark:border-gray-700 mt-4 flex flex-col items-center gap-3">
+    
+                                        <a href="{{ route('clientes.show', $reserva->cliente->id) }}" class="inline-flex items-center px-10 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-md text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700">
+                                            Ver Cliente
+                                        </a>   
+                                        <a href="{{ route('reservas.edit', $reserva->id) }}" class="inline-flex items-center px-10 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
+                                            Editar Reserva
                                         </a>
+
                                     </div>
                                 @endif
                             </div>

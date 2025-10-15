@@ -85,7 +85,9 @@
         @endforelse
 
         <div class="mt-8 text-center">
-            <a href="{{ url()->previous() }}" class="text-indigo-600 dark:text-indigo-400 hover:underline font-medium">Volver</a>
+            <a href="{{ route('dashboard') }}" class="inline-flex items-center px-6 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-md text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                Volver al Panel
+            </a>
         </div>
 
     </div>
