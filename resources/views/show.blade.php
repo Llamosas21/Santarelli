@@ -20,8 +20,6 @@
             </div>
         </div>
 
-        <h3 class="text-xl sm:text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Reservas</h3>
-
         @forelse($cliente->reservas as $reserva)
             <div class="bg-white dark:bg-gray-800 shadow-md rounded-xl p-5 sm:p-6 mb-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition duration-300">
 
@@ -52,34 +50,56 @@
                 </div>
 
                 <!-- Micros -->
-                <div class="mt-4 overflow-x-auto">
-                    <h4 class="font-semibold mb-2 text-gray-700 dark:text-gray-200">Micros</h4>
-                    @if($reserva->micros->isEmpty())
-                        <p class="text-gray-500 italic bg-gray-50 dark:bg-gray-700 p-2 rounded text-sm">No hay micros asignados.</p>
+                <div class="bg-slate-900/70 p-4 rounded-lg">
+                    <h4 class="font-semibold text-lg mb-2 text-indigo-700 dark:text-indigo-400">Micros reservados</h4>
+
+                    @if($reserva->micros->isNotEmpty())
+                        <div class="overflow-x-auto rounded-lg">
+                            <table class="min-w-full text-sm">
+                                <thead class="bg-slate-700">
+                                    <tr>
+                                        <th scope="col" class="px-4 py-2 text-left font-semibold text-gray-300">Tipo de micro</th>
+                                        <th scope="col" class="px-4 py-2 text-center font-semibold text-gray-300">Cantidad</th>
+                                        <th scope="col" class="px-4 py-2 text-center font-semibold text-gray-300">Capacidad Unit.</th>
+                                        <th scope="col" class="px-4 py-2 text-center font-semibold text-gray-300">Subtotal Pasajeros</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-700">
+                                    @foreach($reserva->micros as $micro)
+                                        <tr class="bg-slate-800">
+                                            <td class="px-4 py-2 font-medium text-gray-300">
+                                                {{ $micro->tipoMicro->nombre ?? '-' }}
+                                            </td>
+                                            <td class="px-4 py-2 text-center text-gray-300">
+                                                {{ $micro->cantidad }}
+                                            </td>
+                                            <td class="px-4 py-2 text-center text-gray-400">
+                                                {{ $micro->tipoMicro->capacidad }}
+                                            </td>
+                                            <td class="px-4 py-2 text-center font-medium text-gray-300">
+                                                {{ $micro->cantidad * $micro->tipoMicro->capacidad }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                                <tfoot class="bg-slate-700 font-bold text-gray-200">
+                                    <tr>
+                                        <td class="px-4 py-2 text-left" colspan="1">TOTAL</td>
+                                        <td class="px-4 py-2 text-center">
+                                            {{ $reserva->micros->sum('cantidad') }}
+                                        </td>
+                                        <td class="px-4 py-2"></td> {{-- Celda vacía para alinear --}}
+                                        <td class="px-4 py-2 text-center">
+                                            {{ $reserva->micros->reduce(fn($carry, $micro) => $carry + ($micro->cantidad * $micro->tipoMicro->capacidad), 0) }}
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
                     @else
-                        <table class="min-w-full border-collapse border border-indigo-500 dark:border-indigo-400 rounded-lg overflow-hidden text-gray-700 dark:text-gray-200 text-sm sm:text-base">
-                            <thead class="bg-gray-100 dark:bg-gray-700">
-                                <tr>
-                                    <th class="border border-indigo-500 dark:border-indigo-400 p-2 text-left">Tipo de micro</th>
-                                    <th class="border border-indigo-500 dark:border-indigo-400 p-2 text-left">Cantidad</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($reserva->micros as $micro)
-                                <tr> 
-                                    <td class="p-2 border border-indigo-500 dark:border-indigo-400">
-                                        {{ $micro->tipoMicro->nombre ?? '-' }}
-                                    </td>
-                                    <td class="p-2 border border-indigo-500 dark:border-indigo-400">
-                                        {{ $micro->cantidad }}
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                        <p class="text-sm italic bg-slate-800 p-3 rounded-lg text-gray-500">No hay micros asignados.</p>
                     @endif
                 </div>
-            </div>
         @empty
             <p class="text-gray-500 italic bg-gray-50 dark:bg-gray-700 p-3 rounded text-center text-sm sm:text-base">No tiene reservas registradas.</p>
         @endforelse

@@ -1,6 +1,6 @@
 {{-- Define las clases base para todos los inputs para no repetirlas --}}
 @php
-    $inputClasses = 'w-full rounded-lg border-slate-600 bg-slate-700 text-white placeholder:text-gray-500 focus:border-indigo-500 focus:ring-indigo-500';
+    $inputClasses = 'w-full rounded-lg border-slate-600 bg-slate-700 text-white placeholder:text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 caret-indigo-500';
 @endphp
 
 <x-app-layout>
@@ -10,11 +10,8 @@
 
             <div class="text-center mb-8">
                 <h2 class="text-3xl font-bold text-white sm:text-4xl">
-                    Editar Reserva #{{ $reserva->id }}
+                     {{ $reserva->cliente->nombre }} {{ $reserva->cliente->apellido }}
                 </h2>
-                <p class="mt-2 text-lg text-gray-400">
-                    Cliente: {{ $reserva->cliente->nombre }} {{ $reserva->cliente->apellido }}
-                </p>
             </div>
 
             <form action="{{ route('reservas.update', $reserva->id) }}" method="POST">
@@ -71,24 +68,65 @@
                             <h3 class="text-xl font-semibold text-white mb-6">Gestión de Micros</h3>
                             
                             <div class="bg-slate-900/70 p-4 rounded-lg">
-                                <h4 class="font-semibold mb-3 text-gray-300">Micros ya asignados</h4>
-                                @forelse($reserva->micros as $micro)
-                                    <div class="flex items-center justify-between py-2 text-gray-300">
-                                        <p><span class="font-bold text-indigo-400">{{ $micro->cantidad }}x</span> {{ $micro->tipoMicro->nombre }}</p>
-                                        <span class="text-xs text-gray-500">Capacidad: {{ $micro->tipoMicro->capacidad }}</span>
+                                <h4 class="font-semibold mb-3 text-gray-300">Micros registrados</h4>
+                                
+                                @if($reserva->micros->isNotEmpty())
+                                    <div class="overflow-x-auto rounded-lg">
+                                        <table class="min-w-full text-sm">
+                                            <thead class="bg-slate-700">
+                                                <tr>
+                                                    <th scope="col" class="px-4 py-2 text-left font-semibold text-gray-300">Tipo de micro</th>
+                                                    <th scope="col" class="px-4 py-2 text-center font-semibold text-gray-300">Cantidad</th>
+                                                    <th scope="col" class="px-4 py-2 text-center font-semibold text-gray-300">Capacidad Unit.</th>
+                                                    <th scope="col" class="px-4 py-2 text-center font-semibold text-gray-300">Subtotal Pasajeros</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="divide-y divide-slate-700">
+                                                @foreach($reserva->micros as $micro)
+                                                    <tr class="bg-slate-800">
+                                                        <td class="px-4 py-2 font-medium text-gray-300">
+                                                            {{ $micro->tipoMicro->nombre ?? '-' }}
+                                                        </td>
+                                                        <td class="px-4 py-2 text-center text-gray-300">
+                                                            {{ $micro->cantidad }}
+                                                        </td>
+                                                        <td class="px-4 py-2 text-center text-gray-400">
+                                                            {{ $micro->tipoMicro->capacidad }}
+                                                        </td>
+                                                        <td class="px-4 py-2 text-center font-medium text-gray-300">
+                                                            {{ $micro->cantidad * $micro->tipoMicro->capacidad }}
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                            <tfoot class="bg-slate-700">
+                                                <tr>
+                                                    <td class="px-4 py-2 text-left font-bold text-gray-200" colspan="1">TOTAL</td>
+                                                    <td class="px-4 py-2 text-center font-bold text-gray-200">
+                                                        {{ $reserva->micros->sum('cantidad') }}
+                                                    </td>
+                                                    <td class="px-4 py-2"></td> {{-- Celda vacía para alinear --}}
+                                                    <td class="px-4 py-2 text-center font-bold text-gray-200">
+                                                        {{-- Suma total de la capacidad de pasajeros --}}
+                                                        {{ $reserva->micros->reduce(function ($carry, $micro) {
+                                                            return $carry + ($micro->cantidad * $micro->tipoMicro->capacidad);
+                                                        }, 0) }}
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
                                     </div>
-                                @empty
+                                @else
                                     <p class="text-sm text-gray-500 italic py-2">No hay micros asignados.</p>
-                                @endforelse
+                                @endif
                             </div>
-
                             <div class="mt-6">
                                 <h4 class="font-semibold mb-3 text-gray-300">Agregar nuevo micro a la reserva</h4>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-slate-900/70 p-4 rounded-lg">
                                     <div>
                                         <label for="nuevo_tipo_micro_id" class="block text-sm font-medium text-gray-400 mb-1">Tipo de micro</label>
                                         <select id="nuevo_tipo_micro_id" name="nuevo_tipo_micro_id" class="{{ $inputClasses }}">
-                                            <option value="">-- No agregar --</option>
+                                            <option value="">Seleccionar</option>
                                             @foreach($tiposMicro as $tipo)
                                                 <option value="{{ $tipo->id }}">{{ $tipo->nombre }} (Cap: {{ $tipo->capacidad }})</option>
                                             @endforeach
@@ -96,7 +134,7 @@
                                     </div>
                                     <div>
                                         <label for="nueva_cantidad_micro" class="block text-sm font-medium text-gray-400 mb-1">Cantidad</label>
-                                        <input type="number" min="1" id="nueva_cantidad_micro" name="nueva_cantidad_micro" placeholder="Ej: 1" class="{{ $inputClasses }}">
+                                        <input type="text" inputmode="numeric" pattern="[0-9]*" min="1" id="nueva_cantidad_micro" name="nueva_cantidad_micro" placeholder="1" class="{{ $inputClasses }}">
                                     </div>
                                 </div>
                             </div>
