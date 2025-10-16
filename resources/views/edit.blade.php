@@ -70,7 +70,7 @@
                             <div class="bg-slate-900/70 p-4 rounded-lg">
                                 <h4 class="font-semibold mb-3 text-gray-300">Micros registrados</h4>
                                 
-                                @if($reserva->micros->isNotEmpty())
+                                @if($microsAgrupados->isNotEmpty())
                                     <div class="overflow-x-auto rounded-lg">
                                         <table class="min-w-full text-sm">
                                             <thead class="bg-slate-700">
@@ -82,7 +82,8 @@
                                                 </tr>
                                             </thead>
                                             <tbody class="divide-y divide-slate-700">
-                                                @foreach($reserva->micros as $micro)
+                                                {{-- CAMBIO: Iterar sobre $microsAgrupados --}}
+                                                @foreach($microsAgrupados as $micro)
                                                     <tr class="bg-slate-800">
                                                         <td class="px-4 py-2 font-medium text-gray-300">
                                                             {{ $micro->tipoMicro->nombre ?? '-' }}
@@ -103,14 +104,13 @@
                                                 <tr>
                                                     <td class="px-4 py-2 text-left font-bold text-gray-200" colspan="1">TOTAL</td>
                                                     <td class="px-4 py-2 text-center font-bold text-gray-200">
-                                                        {{ $reserva->micros->sum('cantidad') }}
+                                                        {{-- CAMBIO: Usar $microsAgrupados para la suma --}}
+                                                        {{ $microsAgrupados->sum('cantidad') }}
                                                     </td>
-                                                    <td class="px-4 py-2"></td> {{-- Celda vacía para alinear --}}
+                                                    <td class="px-4 py-2"></td>
                                                     <td class="px-4 py-2 text-center font-bold text-gray-200">
-                                                        {{-- Suma total de la capacidad de pasajeros --}}
-                                                        {{ $reserva->micros->reduce(function ($carry, $micro) {
-                                                            return $carry + ($micro->cantidad * $micro->tipoMicro->capacidad);
-                                                        }, 0) }}
+                                                        {{-- CAMBIO: Usar $microsAgrupados para la suma --}}
+                                                        {{ $microsAgrupados->reduce(fn($carry, $micro) => $carry + ($micro->cantidad * $micro->tipoMicro->capacidad), 0) }}
                                                     </td>
                                                 </tr>
                                             </tfoot>

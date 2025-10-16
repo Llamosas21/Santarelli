@@ -39,12 +39,6 @@ class ReservaFactory extends Factory
                 'fecha_regreso' => $fechaRegreso
             ]);
 
-            // Crear la relación con el micro
-            $tipoMicro = TipoMicro::factory()->create();
-            $reserva->micros()->create([
-                'tipo_micro_id' => $tipoMicro->id,
-                'cantidad' => 1
-            ]);
         });
     }
 }

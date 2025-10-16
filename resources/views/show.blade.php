@@ -53,7 +53,7 @@
                 <div class="bg-slate-900/70 p-4 rounded-lg">
                     <h4 class="font-semibold text-lg mb-2 text-indigo-700 dark:text-indigo-400">Micros reservados</h4>
 
-                    @if($reserva->micros->isNotEmpty())
+                    @if($reserva->microsAgrupados->isNotEmpty())
                         <div class="overflow-x-auto rounded-lg">
                             <table class="min-w-full text-sm">
                                 <thead class="bg-slate-700">
@@ -65,7 +65,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-slate-700">
-                                    @foreach($reserva->micros as $micro)
+                                    @foreach($reserva->microsAgrupados as $micro)
                                         <tr class="bg-slate-800">
                                             <td class="px-4 py-2 font-medium text-gray-300">
                                                 {{ $micro->tipoMicro->nombre ?? '-' }}
@@ -86,11 +86,11 @@
                                     <tr>
                                         <td class="px-4 py-2 text-left" colspan="1">TOTAL</td>
                                         <td class="px-4 py-2 text-center">
-                                            {{ $reserva->micros->sum('cantidad') }}
+                                            {{ $reserva->microsAgrupados->sum('cantidad') }}
                                         </td>
-                                        <td class="px-4 py-2"></td> {{-- Celda vacía para alinear --}}
+                                        <td class="px-4 py-2"></td>
                                         <td class="px-4 py-2 text-center">
-                                            {{ $reserva->micros->reduce(fn($carry, $micro) => $carry + ($micro->cantidad * $micro->tipoMicro->capacidad), 0) }}
+                                            {{ $reserva->microsAgrupados->reduce(fn($carry, $micro) => $carry + ($micro->cantidad * $micro->tipoMicro->capacidad), 0) }}
                                         </td>
                                     </tr>
                                 </tfoot>
