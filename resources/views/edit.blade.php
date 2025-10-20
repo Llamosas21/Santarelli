@@ -39,7 +39,7 @@
                                 </div>
                                 <div>
                                     <label for="monto" class="block text-sm font-medium text-gray-400 mb-1">Precio total</label>
-                                    <input type="number" step="0.01" id="monto" name="monto" value="{{ old('monto', $reserva->monto) }}" class="{{ $inputClasses }}">
+                                    <input type="text" inputmode="decimal"  pattern="[0-9]+(\.[0-9]{1,2})?" placeholder="1.00" id="monto" name="monto" value="{{ old('monto', $reserva->monto) }}" class="{{ $inputClasses }}">
                                 </div>
                                 <div>
                                     <label for="fecha_regreso" class="block text-sm font-medium text-gray-400 mb-1">Fecha de regreso</label>

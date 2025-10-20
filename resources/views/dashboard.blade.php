@@ -91,21 +91,18 @@
                                             {{ ucfirst($reserva->estado) }}
                                         </span>
                                     </p>
-                                </div>
-                                
+                                </div>                               
                                 @if ($reserva->cliente ?? false)
-                                    <div class="pt-4 border-t border-gray-200 dark:border-gray-700 mt-4 flex flex-col items-center gap-3">
-    
-                                        <a href="{{ route('clientes.show', $reserva->cliente->id) }}" class="inline-flex items-center px-10 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-md text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700">
-                                            Ver Cliente
-                                        </a>   
-                                        <a href="{{ route('reservas.edit', $reserva->id) }}" class="inline-flex items-center px-10 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
-                                            Editar Reserva
-                                        </a>
+                                    <div class="pt-4 border-t border-gray-200 dark:border-gray-700 mt-4">
+                                        <div class="flex w-full items-center gap-3">
 
+                                            <a href="{{ route('clientes.show', $reserva->cliente->id) }}" class="flex-1 text-center rounded-lg px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition-colors duration-200">Ver</a>
+
+                                            <a href="{{ route('reservas.edit', $reserva->id) }}" class="flex-1 text-center rounded-lg px-4 py-2 text-sm font-semibold text-indigo-600 dark:text-indigo-300 bg-indigo-100 dark:bg-indigo-900/50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition-colors duration-200">Editar</a>
+
+                                        </div>
                                     </div>
-                                @endif
-                                
+                                @endif 
                             </div>
                         @endforeach
                     </div>
