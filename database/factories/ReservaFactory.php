@@ -27,10 +27,11 @@ class ReservaFactory extends Factory
     {
         return $this->afterCreating(function (Reserva $reserva) {
             // Crear el horario de la reserva
-            $fechaSalida = $this->faker->dateTimeBetween('now', '+2 months');
+            $fechaSalida = $this->faker->dateTimeBetween('first day of this month', 'last day of +2 months');
+            
             $fechaRegreso = $this->faker->dateTimeBetween(
-                $fechaSalida->format('Y-m-d'),
-                $fechaSalida->modify('+1 month')->format('Y-m-d')
+                $fechaSalida,
+                (clone $fechaSalida)->modify('+1 month')
             );
             
             $reserva->horario()->create([
@@ -38,15 +39,6 @@ class ReservaFactory extends Factory
                 'fecha_regreso' => $fechaRegreso
             ]);
 
-            // Crear la relación con el micro
-            // Primero creamos el tipo de micro
-            $tipoMicro = TipoMicro::factory()->create();
-
-            // Luego lo asociamos a la reserva
-            $reserva->micros()->create([
-                'tipo_micro_id' => $tipoMicro->id,
-                'cantidad' => 1
-            ]);
         });
     }
 }
