@@ -5,7 +5,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ReservaController; 
-
+use App\Http\Controllers\Api\ReservaApiController;
+use App\Models\Reserva;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -30,5 +31,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/reservas/{reserva}/edit', [ReservaController::class, 'edit'])->name('reservas.edit');
     // Procesa los datos del formulario de edición.
     Route::put('/reservas/{reserva}', [ReservaController::class, 'update'])->name('reservas.update');
+    
+    // Esta API interna (segura) revisará el conteo de reservas.
+        Route::get('/api/reservas/count', function() {
+            return response()->json(['count' => Reserva::count()]);
+        })->name('api.reservas.count');
 });
 require __DIR__.'/auth.php';
+
+// Esta ruta es pública y NO requiere autenticación.
+Route::post('/api/reservas', [ReservaApiController::class, 'store'])->name('api.reservas.store');

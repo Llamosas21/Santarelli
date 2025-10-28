@@ -5,7 +5,6 @@
             Detalles de {{ $cliente->nombre }} {{ $cliente->apellido }}
         </h2>
 
-        <!-- Contactos -->
         <div class="bg-white dark:bg-gray-800 shadow-xl rounded-xl p-5 sm:p-6 mb-8 border border-indigo-200 dark:border-gray-700 hover:shadow-2xl transition duration-300">
             <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
                 <h4 class="font-semibold text-lg mb-3 text-indigo-700 dark:text-indigo-400">Contactos</h4>
@@ -24,7 +23,6 @@
             <div class="bg-white dark:bg-gray-800 shadow-md rounded-xl p-5 sm:p-6 mb-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition duration-300">
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-4">
-                    <!-- Resumen -->
                     <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
                         <h4 class="font-semibold text-lg mb-2 text-indigo-700 dark:text-indigo-400">Resumen</h4>
                         <p class="text-gray-700 dark:text-gray-200"><span class="font-semibold">Lugar destino:</span> {{ $reserva->lugar->nombre ?? '-' }}</p>
@@ -40,7 +38,6 @@
                         </p>
                     </div>
 
-                    <!-- Horarios -->
                     <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
                         <h4 class="font-semibold text-lg mb-2 text-indigo-700 dark:text-indigo-400">Horarios</h4>
                         <p class="text-gray-700 dark:text-gray-200"><span class="font-semibold">Fecha salida:</span> {{ optional($reserva->horario)->fecha_salida ?? '-' }}</p>
@@ -49,7 +46,6 @@
                     </div>
                 </div>
 
-                <!-- Micros -->
                 <div class="bg-slate-900/70 p-4 rounded-lg">
                     <h4 class="font-semibold text-lg mb-2 text-indigo-700 dark:text-indigo-400">Micros reservados</h4>
 
@@ -100,6 +96,7 @@
                         <p class="text-sm italic bg-slate-800 p-3 rounded-lg text-gray-500">No hay micros asignados.</p>
                     @endif
                 </div>
+            </div>           
         @empty
             <p class="text-gray-500 italic bg-gray-50 dark:bg-gray-700 p-3 rounded text-center text-sm sm:text-base">No tiene reservas registradas.</p>
         @endforelse

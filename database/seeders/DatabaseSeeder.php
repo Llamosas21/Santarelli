@@ -36,8 +36,8 @@ class DatabaseSeeder extends Seeder
             ]),
         ]);
 
-        // La lógica para crear reservas y asignar micros sigue igual y funcionará perfecto
-        Reserva::factory(50)
+        /*
+          Reserva::factory(50)
             ->create()
             ->each(function (Reserva $reserva) use ($tiposDeMicro) {
                 $tipoMicroSeleccionado = $tiposDeMicro->random();
@@ -48,6 +48,8 @@ class DatabaseSeeder extends Seeder
                     'cantidad' => $cantidadDeMicros,
                 ]);
             });
+        */ 
+      
         // \App\Models\ReservaTest::factory(50)->create();
     }
 }
