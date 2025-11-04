@@ -9,7 +9,7 @@ class Reserva extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['cliente_id', 'lugar_id', 'monto', 'cantidad_pasajeros','estado'];
+    protected $fillable = ['cliente_id', 'lugar_id', 'lugar_partida_id', 'monto', 'cantidad_pasajeros','estado'];
 
     // Una reserva pertenece a un cliente
     public function cliente()
@@ -17,10 +17,16 @@ class Reserva extends Model
         return $this->belongsTo(Cliente::class);
     }
 
-    // Una reserva pertenece a un lugar
+    // Una reserva pertenece a un destino
     public function lugar()
     {
         return $this->belongsTo(LugarDestino::class, 'lugar_id');
+    }
+
+    // Una reserva tiene un lugar de partida
+    public function lugarPartida()
+    {
+        return $this->belongsTo(LugarPartida::class, 'lugar_partida_id');
     }
 
     // Una reserva tiene un horario

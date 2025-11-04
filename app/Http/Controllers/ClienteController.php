@@ -15,6 +15,7 @@ class ClienteController extends Controller
         $cliente = Cliente::with([
             'contactos',
             'reservas.lugar',
+            'reservas.lugarPartida',
             'reservas.horario',
             'reservas.micros.tipoMicro'
         ])->findOrFail($id);

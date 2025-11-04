@@ -42,7 +42,7 @@
                         <h4 class="font-semibold text-lg mb-2 text-indigo-700 dark:text-indigo-400">Horarios</h4>
                         <p class="text-gray-700 dark:text-gray-200"><span class="font-semibold">Fecha salida:</span> {{ optional($reserva->horario)->fecha_salida ?? '-' }}</p>
                         <p class="text-gray-700 dark:text-gray-200"><span class="font-semibold">Fecha regreso:</span> {{ optional($reserva->horario)->fecha_regreso ?? '-' }}</p>
-                        <p class="text-gray-700 dark:text-gray-200"><span class="font-semibold">Lugar de salida:</span> {{ $reserva->lugar->direccion ?? '-' }}</p>
+                        |<p class="text-gray-700 dark:text-gray-200"><span class="font-semibold">Lugar de partida:</span> {{ $reserva->lugarPartida->nombre ?? '-' }}</p>
                     </div>
                 </div>
 
