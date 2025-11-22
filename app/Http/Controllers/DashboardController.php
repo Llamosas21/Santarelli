@@ -8,7 +8,7 @@ use Illuminate\Contracts\View\View;
 
 class DashboardController extends Controller
 {
-     public function index(Request $request)
+    public function index(Request $request)
     {
         // Obtener los valores de los filtros
         $estadoFiltro = $request->input('estado', 'pendiente');
@@ -43,7 +43,10 @@ class DashboardController extends Controller
             ->join('horario_reserva', 'reservas.id', '=', 'horario_reserva.reserva_id')
             ->whereBetween('horario_reserva.fecha_salida', [$inicioMes, $finMes])
             ->orderBy('horario_reserva.fecha_salida', 'asc')
-            ->select('reservas.*')
+
+            // FIX: Incluir 'horario_reserva.fecha_salida' en el select para que sea compatible con DISTINCT
+            ->select('reservas.*', 'horario_reserva.fecha_salida')
+
             ->distinct();
 
         if ($estadoFiltro !== 'todos') {
