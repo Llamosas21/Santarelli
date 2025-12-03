@@ -20,7 +20,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
                             </button>
                         </div>
-                        
+
                         <div x-data="{ open: false }" class="relative inline-block text-left">
                             <div>
                                 <button @click="open = !open" type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 dark:border-gray-600 shadow-sm px-4 py-2 bg-white dark:bg-gray-800 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
@@ -55,7 +55,7 @@
                         No hay reservas que coincidan con los filtros seleccionados.
                     </div>
                 @else
-                    
+
                     <div x-show="view === 'table'" x-transition
                          class="bg-white dark:bg-slate-900/70 rounded-2xl p-4 shadow-sm border border-gray-200 dark:border-transparent">
                         <div class="overflow-x-auto rounded-lg">

@@ -46,39 +46,39 @@
                     </div>
                 </div>
 
-                <div class="bg-slate-900/70 p-4 rounded-lg">
+                <div class="bg-gray-100 dark:bg-slate-900/70 p-4 rounded-lg">
                     <h4 class="font-semibold text-lg mb-2 text-indigo-700 dark:text-indigo-400">Micros reservados</h4>
 
                     @if($reserva->microsAgrupados->isNotEmpty())
                         <div class="overflow-x-auto rounded-lg">
                             <table class="min-w-full text-sm">
-                                <thead class="bg-slate-700">
+                                <thead class="bg-gray-200 dark:bg-slate-700">
                                     <tr>
-                                        <th scope="col" class="px-4 py-2 text-left font-semibold text-gray-300">Tipo de micro</th>
-                                        <th scope="col" class="px-4 py-2 text-center font-semibold text-gray-300">Cantidad</th>
-                                        <th scope="col" class="px-4 py-2 text-center font-semibold text-gray-300">Capacidad Unit.</th>
-                                        <th scope="col" class="px-4 py-2 text-center font-semibold text-gray-300">Subtotal Pasajeros</th>
+                                        <th scope="col" class="px-4 py-2 text-left font-semibold text-gray-700 dark:text-gray-300">Tipo de micro</th>
+                                        <th scope="col" class="px-4 py-2 text-center font-semibold text-gray-700 dark:text-gray-300">Cantidad</th>
+                                        <th scope="col" class="px-4 py-2 text-center font-semibold text-gray-700 dark:text-gray-300">Capacidad Unit.</th>
+                                        <th scope="col" class="px-4 py-2 text-center font-semibold text-gray-700 dark:text-gray-300">Subtotal Pasajeros</th>
                                     </tr>
                                 </thead>
-                                <tbody class="divide-y divide-slate-700">
+                                <tbody class="divide-y divide-gray-200 dark:divide-slate-700">
                                     @foreach($reserva->microsAgrupados as $micro)
-                                        <tr class="bg-slate-800">
-                                            <td class="px-4 py-2 font-medium text-gray-300">
+                                        <tr class="bg-white dark:bg-slate-800">
+                                            <td class="px-4 py-2 font-medium text-gray-900 dark:text-gray-300">
                                                 {{ $micro->tipoMicro->nombre ?? '-' }}
                                             </td>
-                                            <td class="px-4 py-2 text-center text-gray-300">
+                                            <td class="px-4 py-2 text-center text-gray-900 dark:text-gray-300">
                                                 {{ $micro->cantidad }}
                                             </td>
-                                            <td class="px-4 py-2 text-center text-gray-400">
+                                            <td class="px-4 py-2 text-center text-gray-600 dark:text-gray-400">
                                                 {{ $micro->tipoMicro->capacidad }}
                                             </td>
-                                            <td class="px-4 py-2 text-center font-medium text-gray-300">
+                                            <td class="px-4 py-2 text-center font-medium text-gray-900 dark:text-gray-300">
                                                 {{ $micro->cantidad * $micro->tipoMicro->capacidad }}
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
-                                <tfoot class="bg-slate-700 font-bold text-gray-200">
+                                <tfoot class="bg-gray-200 dark:bg-slate-700 font-bold text-gray-900 dark:text-gray-200">
                                     <tr>
                                         <td class="px-4 py-2 text-left" colspan="1">TOTAL</td>
                                         <td class="px-4 py-2 text-center">
@@ -93,7 +93,7 @@
                             </table>
                         </div>
                     @else
-                        <p class="text-sm italic bg-slate-800 p-3 rounded-lg text-gray-500">No hay micros asignados.</p>
+                        <p class="text-sm italic bg-gray-50 dark:bg-slate-800 p-3 rounded-lg text-gray-500 dark:text-gray-400">No hay micros asignados.</p>
                     @endif
                 </div>
             </div>           

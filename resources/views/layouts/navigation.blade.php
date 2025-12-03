@@ -4,7 +4,7 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center"><a href="{{ route('dashboard') }}">
+                <div class="shrink-0 flex items-center -ml-12"><a href="{{ route('dashboard') }}">
                         <img src="{{ asset('images/Logo Blanco.svg') }}" alt="Logo de la aplicación" class="block h-14 w-auto">
                     </a>
                 </div>
